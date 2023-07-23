@@ -33,10 +33,14 @@ const validarProducto = [
     .withMessage("El detalle del producto debe contener entre 5 y 500 caracteres"),
     check(`estado`)
     .notEmpty()
-    .withMessage("El estado es una dato obligatorio")
+    .withMessage("El estado es un dato obligatorio")
     .isIn(["Activo","Inactivo"])
-    .withMessage("El estado debe ser una opción válida"),
-    check(`categoria`),
+    .withMessage("Debe elegir una opción válida"),
+    check(`categoria`)
+    .notEmpty()
+    .withMessage("La categoría es un dato obligatorio")
+    .isIn(["Hamburguesa","Pizza", "Veggie", "Bebida", "Promociones", "Otro"])
+    .withMessage("Debe elegir una opción válida"),
 
     (req, res, netx) => {resultadoValidacion(req, res, netx)}
 ]
