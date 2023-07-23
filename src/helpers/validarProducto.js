@@ -1,0 +1,1 @@
+import resultadoValidacion from "./resultadoValidacion";
