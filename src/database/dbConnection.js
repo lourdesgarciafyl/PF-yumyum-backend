@@ -1,7 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 import "dotenv/config"
 
-const uri = "mongodb://127.0.0.1:27017/yumyum"
+const uri = process.env.DATABASE_URI || "mongodb://127.0.0.1:27017/yumyum"
 mongoose.connect(uri)
 
 const datosConexion = mongoose.connection;
