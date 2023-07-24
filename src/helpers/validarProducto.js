@@ -42,7 +42,7 @@ const validarProducto = [
     .isIn(["Hamburguesa","Pizza", "Veggie", "Bebida", "Promociones", "Otro"])
     .withMessage("Debe elegir una opción válida"),
 
-    (req, res, netx) => {resultadoValidacion(req, res, netx)}
+    (req, res, next) => {resultadoValidacion(req, res, next)}
 ]
 
 export default validarProducto;
