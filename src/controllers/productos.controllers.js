@@ -29,3 +29,20 @@ export const obtenerListaProductos = async (req, res) =>{
     }
 }
 
+export const editarProducto = async (req, res) => {
+  try {
+    await Producto.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).json({
+      mensaje: 'El producto fue editado correctamente.',
+    });
+  } catch (error) {
+    if(error.code === 11000){
+      return res.status(404).json({
+        mensaje: 'Este nombre de producto ya existe. Intente con otro.',
+      });
+    }
+    res.status(404).json({
+      mensaje: 'Error, no se pudo editar el producto.',
+    });
+  }
+};
