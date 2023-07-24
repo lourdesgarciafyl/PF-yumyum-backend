@@ -1,10 +1,9 @@
 import { Router } from "express";
 import validarProducto from "../helpers/validarProducto";
-import {crearProducto, obtenerListaProductos } from "../controllers/productos.controllers";
+import {crearProducto, editarProducto, obtenerListaProductos } from "../controllers/productos.controllers";
 
 const router = Router();
 router.route("/").post(validarProducto, crearProducto).get(obtenerListaProductos)
-
-// otra ruta para las peticiones faltantes
+router.route("/:id").put(validarProducto, editarProducto)
 
 export default router;
