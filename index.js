@@ -20,4 +20,4 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, `/public`)))
 
 // http://localhost:4010/yumyum
-app.use(`/yumyum`, productosRouter)
+app.use(`/apiyumyum/productos`, productosRouter)
