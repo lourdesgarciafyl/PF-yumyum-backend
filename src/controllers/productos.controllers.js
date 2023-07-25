@@ -46,3 +46,15 @@ export const editarProducto = async (req, res) => {
     });
   }
 };
+
+export const consultaProductosPorCategoria = async (req, res) => {
+  try {
+    const producto = await Producto.find({categoria: req.params.categoria});
+    res.status(200).json(producto);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje: 'Error al intentar obtener el/los producto/s por categoría',
+    });
+  }
+};
