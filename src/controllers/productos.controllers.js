@@ -47,6 +47,19 @@ export const editarProducto = async (req, res) => {
   }
 };
 
+export const obtenerProducto = async (req, res) =>{
+  try{
+     console.log(req.params.id)
+     const producto = await Producto.findById(req.params.id);
+     res.status(200).json(producto);
+  }catch(error){
+      console.log(error)
+      res.status(404).json({
+          mensaje: "Error, no se pudo obtener el producto."
+      })
+  }
+}
+
 export const borrarProducto = async (req, res) =>{
   try{
      await Producto.findByIdAndDelete(req.params.id);
@@ -59,7 +72,7 @@ export const borrarProducto = async (req, res) =>{
           mensaje: "Error, el producto no se pudo borrar"
       })
   }
-}
+};
 
 export const consultaProductosPorCategoria = async (req, res) => {
   try {
