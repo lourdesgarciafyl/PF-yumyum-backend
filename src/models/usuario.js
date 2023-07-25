@@ -35,6 +35,6 @@ const usuarioSchema = new Schema({
   },
 });
 
-const Producto = mongoose.model(`producto`, productoSchema);
+const Usuario = mongoose.model(`usuario`, usuarioSchema);
 
-export default Producto;
+export default Usuario;
