@@ -9,7 +9,7 @@ const validarPedido = [
     check("fechaPedido")
     .notEmpty()
     .withMessage("La fecha es un dato obligatorio.")
-    .isDate(),
+    .isDate({format:'DD-MM-YYYY'}),
     check("productos")
     .notEmpty()
     .withMessage("Debe ingresar productos al pedido.")
