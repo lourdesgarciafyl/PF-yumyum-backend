@@ -19,5 +19,5 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, `/public`)))
 
-// http://localhost:4010/yumyum
+// http://localhost:4010/apiyumyum
 app.use(`/apiyumyum/productos`, productosRouter)
