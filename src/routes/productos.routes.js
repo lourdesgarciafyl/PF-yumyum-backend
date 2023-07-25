@@ -4,7 +4,9 @@ import {activarProducto, consultaProductosPorCategoria, crearProducto, desactiva
 
 const router = Router();
 router.route("/").post(validarProducto, crearProducto).get(obtenerListaProductos)
-router.route("/:id").put(validarProducto, editarProducto).put(validarProducto, activarProducto).put(validarProducto, desactivarProducto)
+router.route("/:id").put(validarProducto, editarProducto)
 router.route("/categoria/:categoria").get(consultaProductosPorCategoria)
+router.route("/activar/:id").put(activarProducto)
+router.route("/desactivar/:id").put(desactivarProducto)
 
 export default router;
