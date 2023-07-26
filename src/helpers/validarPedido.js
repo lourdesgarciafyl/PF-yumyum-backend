@@ -4,8 +4,7 @@ import { check } from "express-validator";
 const validarPedido = [
     check("usuario")
     .notEmpty()
-    .withMessage("El usuario es un dato obligatorio")
-    .isString(),
+    .withMessage("El usuario es un dato obligatorio"),
     check("fechaPedido")
     .notEmpty()
     .withMessage("La fecha es un dato obligatorio.")
