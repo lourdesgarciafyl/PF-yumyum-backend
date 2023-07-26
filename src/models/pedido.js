@@ -19,7 +19,7 @@ const pedidoSchema = new Schema({
       subtotalItem: {
         type: Number,
         required: true,
-        min: 1,
+        min: 100,
         max: 100000,
       },
     },
@@ -33,8 +33,8 @@ const pedidoSchema = new Schema({
   precioTotal: {
     type: Number,
     required: true,
-    min: 1,
-    max: 100000,
+    min: 100,
+    max: 500000,
   },
 });
 
