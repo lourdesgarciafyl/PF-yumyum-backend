@@ -11,8 +11,6 @@ const categoriaSchema = new Schema({
   estado: {
     type: String,
     required: true,
-    MinLength: 3,
-    maxLength: 10,
   },
 });
 
