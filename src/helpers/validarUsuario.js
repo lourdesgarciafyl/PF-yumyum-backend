@@ -23,7 +23,7 @@ const validarUsuario = [
     .withMessage("El e-mail es un dato obligatorio")
     .matches(/^[^@]+@[^@]+\.[a-zA-Z]{5,}$/)
     .withMessage("El e-mail debe cumplir con el formato juan@correo.com")
-    .isLength({ min: 8, max: 60 })
+    .isLength({ min: 5, max: 60 })
     .withMessage("El e-mail debe contener entre 5 y 60 caracteres"),
 
   check(`password`)
@@ -35,7 +35,7 @@ const validarUsuario = [
       "La contraseña debe tener como mìnimo 8 caracteres , al menos un número, una minúscula, una mayúscula y no contener caracteres especiales."
     )
     .isLength({ min: 8 })
-    .withMessage("El password debe contener entre 8 y 16 caracteres"),
+    .withMessage("El password debe contener 8 o màs caracteres"),
 
   check(`estado`)
     .notEmpty()
