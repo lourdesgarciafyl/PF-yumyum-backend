@@ -6,6 +6,8 @@ import path from "path";
 import "./src/database/dbConnection"
 import productosRouter from "./src/routes/productos.routes"
 import categoriasRouter from "./src/routes/categorias.routes"
+import usuariosRouter from "./src/routes/usuarios.routes"
+
 
 dotenv.config();
 const app = express();
@@ -20,6 +22,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, `/public`)))
 
+
 // http://localhost:4010/apiyumyum
 app.use(`/apiyumyum/productos`, productosRouter)
 app.use(`/apiyumyum/categorias`, categoriasRouter)
+app.use(`/apiyumyum/auth`, usuariosRouter)
