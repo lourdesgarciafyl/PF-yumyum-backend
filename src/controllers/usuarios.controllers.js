@@ -1,5 +1,5 @@
 import Usuario from "../models/usuario";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
 export const crearUsuario = async (req, res) => {
   try {
@@ -43,11 +43,13 @@ export const borrarUsuario = async (req, res) => {
           return res.status(404).json({
               mensaje: "El usuario no fue encontrado.",
           });
+
       } // Borramos el usuario de la BD
       await Usuario.findByIdAndDelete(req.params.id);
       res.status(200).json({
           mensaje: "Usuario eliminado exitosamente."
       });
+
   } catch (error) {
       console.log(error);
       res.status(400).json({
