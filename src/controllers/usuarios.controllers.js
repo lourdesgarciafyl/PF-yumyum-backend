@@ -102,3 +102,15 @@ export const obtenerListaUsuarios = async (req, res) =>{
       })
   }
 }
+
+export const obtenerUsuario = async (req, res) => {
+  try{
+      const usuario = await Usuario.findById(req.params.id);
+      res.status(200).json(usuario);
+  }catch(error){
+      console.log(error)
+      res.status(404).json({
+          mensaje: "Error. No se pudo obtener el usuario"
+      })
+  }
+}
