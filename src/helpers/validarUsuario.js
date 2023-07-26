@@ -23,8 +23,8 @@ const validarUsuario = [
     .withMessage("El e-mail es un dato obligatorio")
     .matches(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/)
     .withMessage("El e-mail debe cumplir con el formato juan@correo.com")
-    .isLength({ min: 8, max: 16 })
-    .withMessage("El e-mail debe contener entre 8 y 16 caracteres"),
+    .isLength({ min: 8, max: 60 })
+    .withMessage("El e-mail debe contener entre 8 y 60 caracteres"),
 
   check(`password`)
     .notEmpty()
