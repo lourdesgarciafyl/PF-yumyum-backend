@@ -1,5 +1,5 @@
 import Usuario from "../models/usuario";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
 export const crearUsuario = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ export const crearUsuario = async (req, res) => {
     usuario = new Usuario(req.body);
     //encriptar el password
     const salt = bcrypt.genSaltSync(10);
-    usuario.password = bcrypt.hashSync(password,salt);
+    usuario.password = bcrypt.hashSync(password, salt);
 
     await usuario.save();
     res.status(201).json({
@@ -30,6 +30,63 @@ export const crearUsuario = async (req, res) => {
     console.log(error);
     res.status(400).json({
       mensaje: "El usuario no pudo ser creado",
+    });
+  }
+};
+
+export const borrarUsuario = async (req, res) => {
+  try {
+    // Aqui verificamos si el usuario existe en la BD
+    const usuario = await Usuario.findById(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "El usuario no fue encontrado.",
+      });
+    } // Borramos el usuario de la BD
+    await Usuario.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      mensaje: "Usuario eliminado exitosamente.",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      mensaje: "No se pudo eliminar el usuario.",
+    });
+  }
+};
+
+export const editarUsuario = async (req, res) => {
+  try {
+    const { email, password, nombreUsuario } = req.body;
+
+    // Verificar si el usuario existe en la BD
+    const usuario = await Usuario.findById(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "El usuario no fue encontrado.",
+      });
+    }
+
+    // Si existe el usuario entonces ahi actualizamos sus datos
+    usuario.email = email;
+    usuario.nombreUsuario = nombreUsuario;
+
+    // Si cambio la contraseña la encriptamos y actualizamos
+    if (password) {
+      const salt = bcrypt.genSaltSync(10);
+      usuario.password = bcrypt.hashSync(password, salt);
+    }
+
+    // Guardamos los cambios en la BD
+    await usuario.save();
+
+    res.status(200).json({
+      mensaje: "Usuario actualizado exitosamente."
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      mensaje: "No se pudo actualizar el usuario correctamente."
     });
   }
 };
