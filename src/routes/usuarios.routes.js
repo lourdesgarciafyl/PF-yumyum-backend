@@ -1,8 +1,9 @@
 import { Router } from "express";
 import validarUsuario from "../helpers/validarUsuario";
-import {borrarUsuario, crearUsuario, editarUsuario} from "../controllers/usuarios.controllers";
+import {borrarUsuario, crearUsuario, editarUsuario, obtenerListaUsuarios, obtenerUsuario} from "../controllers/usuarios.controllers";
 
 const router = Router();
+router.route("/").get(obtenerListaUsuarios)
 router.route("/nuevo").post(validarUsuario, crearUsuario)
-router.route("/:id").delete(borrarUsuario).put(validarUsuario, editarUsuario)
+router.route("/:id").delete(borrarUsuario).put(validarUsuario, editarUsuario).get(obtenerUsuario)
 export default router;
