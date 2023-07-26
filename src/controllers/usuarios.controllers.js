@@ -57,3 +57,40 @@ export const borrarUsuario = async (req, res) => {
       });
   }
 };
+
+export const editarUsuario = async (req, res) => {
+  try {
+
+    const { email, password, nombreUsuario } = req.body;
+
+    // Verificar si el usuario existe en la DB
+    const usuario = await Usuario.findById(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "El usuario no fue encontrado.",
+      });
+    }
+
+    // Si existe el usuario entonces ahi actualizamos sus datos
+    usuario.email = email;
+    usuario.nombreUsuario = nombreUsuario;
+
+    // Si cambio la contraseña la encriptamos y actualizamos
+    if (password) {
+      const salt = bcrypt.genSaltSync(10);
+      usuario.password = bcrypt.hashSync(password, salt);
+    }
+
+    // Guardamos los cambios en la BD
+    await usuario.save();
+
+    res.status(200).json({
+      mensaje: "Usuario actualizado exitosamente."
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      mensaje: "No se pudo actualizar el usuario.",
+    });
+  }
+};
