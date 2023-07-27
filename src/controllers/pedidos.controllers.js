@@ -58,14 +58,13 @@ export const obtenerPedido = async (req, res) => {
 
 export const borrarPedido = async (req, res) => {
   try {
-    // Aqui verificamos si el pedido existe en la BD
     const pedido = await Pedido.findById(req.params.id);
     if (!pedido) {
       return res.status(404).json({
         mensaje: "El pedido no fue encontrado.",
       });
-    } // Borramos el usuario de la BD
-    await pedido.findByIdAndDelete(req.params.id);
+    }
+    await Pedido.findByIdAndDelete(req.params.id);
     res.status(200).json({
       mensaje: "Pedido eliminado exitosamente.",
     });
