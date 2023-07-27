@@ -136,7 +136,7 @@ export const obtenerListaUsuarios = async (req, res) =>{
           mensaje: "Error. No se pudo obtener la lista de usuarios"
       })
   }
-}
+};
 
 export const obtenerUsuario = async (req, res) => {
   try{
@@ -148,4 +148,33 @@ export const obtenerUsuario = async (req, res) => {
           mensaje: "Error. No se pudo obtener el usuario"
       })
   }
-}
+};
+
+export const registro = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    let usuario = await Usuario.findOne({ email });
+    if (usuario) {
+      return res.status(400).json({
+        mensaje: "El email ya se encuentra registrado.",
+      });
+    }
+    usuario = new Usuario(req.body);
+    const salt = bcrypt.genSaltSync(10);
+    usuario.password = bcrypt.hashSync(password, salt);
+    usuario.perfil = "Cliente";
+    usuario.estado = "Activo";
+    await usuario.save();
+    res.status(201).json({
+      mensaje: "usuario creado",
+      nombre: usuario.nombreUsuario,
+      perfil: usuario.perfil,
+      uid: usuario._id,
+    });
+  } catch (error){
+    console.log(error);
+    res.status(400).json({
+      mensaje: "El usuario no pudo ser registrado.",
+    });
+  }
+};
