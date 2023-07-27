@@ -4,8 +4,8 @@ import {borrarUsuario, crearUsuario, editarUsuario, loginUsuario, obtenerListaUs
 import validarJWT from "../helpers/tokenVerificacion";
 
 const router = Router();
-router.route("/").get(validarJWT,obtenerListaUsuarios)
+router.route("/").get([validarJWT, validarPerfilAdmin],obtenerListaUsuarios)
 router.route("/login").post(validarLogin,loginUsuario)
-router.route("/nuevo").post(validarUsuario, crearUsuario)
-router.route("/:id").delete(validarJWT,borrarUsuario).put([validarJWT, validarUsuario], editarUsuario).get(validarJWT, obtenerUsuario)
+router.route("/nuevo").post([validarJWT, validarPerfilAdmin, validarUsuario], crearUsuario)
+router.route("/:id").delete([validarJWT, validarPerfilAdmin],borrarUsuario).put([validarJWT, validarPerfilAdmin, validarUsuario], editarUsuario).get(validarJWT, obtenerUsuario)
 export default router;
