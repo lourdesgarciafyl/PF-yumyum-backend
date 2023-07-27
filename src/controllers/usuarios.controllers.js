@@ -1,3 +1,4 @@
+import generarJWT from "../helpers/tokenLogin";
 import Usuario from "../models/usuario";
 import bcrypt from "bcrypt";
 
@@ -37,6 +38,7 @@ export const loginUsuario = async (req, res) => {
   try {
     const { email, password } = req.body;
     let usuario = await Usuario.findOne({ email });
+    const { nombreUsuario, perfil } = usuario;
 
     if (!usuario) {
       return res.status(400).json({
@@ -55,11 +57,15 @@ export const loginUsuario = async (req, res) => {
         mensaje: 'Email o password no válido - password',
       });
     }
+
+    //generar el token (identificador de este usuario)
+    const token = await generarJWT({ nombreUsuario, perfil });
     res.status(200).json({
       mensaje: 'El usuario es correcto',
       nombre: usuario.nombreUsuario,
       email: usuario.email,
       perfil: usuario.perfil,
+      token
     });
   } catch (error) {
     console.log(error);
