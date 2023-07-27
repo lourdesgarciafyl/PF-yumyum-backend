@@ -15,3 +15,26 @@ export const crearPedido = async (req, res) => {
     }
   };
   
+  export const obtenerListaPedidos = async (req, res) => {
+    try {
+      //buscar en la BD la collection de pedidos
+      const pedidos = await Pedido.find()
+        .populate({
+          path: 'productos.producto',
+          select: '-_id -__v', // Opcional: selecciona los campos que deseas excluir, como _id y __v
+        })
+        .populate({
+          path: 'usuario',
+          select: '-_id -password -estado -perfil -__v', //  Opcional: selecciona los campos que deseas excluir, como _id y __v -password -estado -perfil
+        });
+  
+  
+      res.status(200).json(pedidos);
+    } catch (error) {
+      console.log(error);
+      res.status(404).json({
+        mensaje: 'Error al intentar listar los pedidos',
+      });
+    }
+  };
+  
