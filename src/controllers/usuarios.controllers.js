@@ -163,6 +163,7 @@ export const registro = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     usuario.password = bcrypt.hashSync(password, salt);
     usuario.perfil = "Cliente";
+    usuario.estado = "Activo";
     await usuario.save();
     res.status(201).json({
       mensaje: "usuario creado",
