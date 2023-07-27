@@ -6,9 +6,9 @@ import validarJWT from "../helpers/tokenVerificacion";
 
 const router = Router();
 router.route("/").post([validarJWT, validarProducto], crearProducto).get(obtenerListaProductos)
-router.route("/:id").get(obtenerProducto).delete(borrarProducto).put(validarProducto, editarProducto)
+router.route("/:id").get(obtenerProducto).delete(borrarProducto).put([validarJWT, validarProducto], editarProducto)
 router.route("/categoria/:categoria").get(consultaProductosPorCategoria)
-router.route("/activar/:id").put(validarEstadoProducto, activarProducto)
-router.route("/desactivar/:id").put(validarEstadoProducto, desactivarProducto)
+router.route("/activar/:id").put([validarJWT, validarEstadoProducto], activarProducto)
+router.route("/desactivar/:id").put([validarJWT, validarEstadoProducto], desactivarProducto)
 
 export default router;
