@@ -1,9 +1,11 @@
 import { Router } from "express";
 import validarPedido from "../helpers/validarPedido";
-import { crearPedido, obtenerListaPedidos, obtenerPedido } from "../controllers/pedidos.controllers";
+import { crearPedido, entregarPedido, obtenerListaPedidos, obtenerPedido, pedidoEnProceso } from "../controllers/pedidos.controllers";
 
 const router = Router();
 router.route("/").post(validarPedido, crearPedido).get(obtenerListaPedidos)
 router.route("/:id").get(obtenerPedido)
+router.route("/pendiente/:id").put(validarPedido, pedidoEnProceso)
+router.route("/entregado/:id").put(validarPedido, entregarPedido)
 
 export default router

@@ -54,3 +54,62 @@ export const crearPedido = async (req, res) => {
         })
     }
   }
+
+  export const entregarPedido = async (req, res) => {
+    const idPedido = req.params.id;
+    try {
+      const pedido = await Pedido.findById(idPedido);
+      if (!pedido) {
+        return res.status(404).json({ error: 'Pedido no encontrado' });
+      }
+  
+  
+      if (pedido.estado === 'Entregado') {
+        return res
+          .status(404)
+          .json({ error: 'El pedido ya se encuentra en Entregado' });
+      }
+  
+  
+      pedido.estado = 'Entregado';
+      await pedido.save();
+      res.status(200).json({
+        mensaje: 'Se entregó el pedido correctamente.',
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(404).json({
+        mensaje: 'Error, no se pudo pasar a entregado el pedido.',
+      });
+    }
+  };
+  
+  
+  export const pedidoEnProceso = async (req, res) => { // En proceso
+    const idPedido = req.params.id;
+    try {
+      const pedido = await Pedido.findById(idPedido);
+      if (!pedido) {
+        return res.status(404).json({ error: 'Pedido no encontrado' });
+      }
+  
+  
+      if (pedido.estado === 'En proceso') {
+        return res
+          .status(404)
+          .json({ error: 'El pedido ya se encuentra en proceso' });
+      }
+  
+  
+      pedido.estado = 'En proceso';
+      await pedido.save();
+      res.status(200).json({
+        mensaje: 'El pedido esta en proceso.',
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(404).json({
+        mensaje: 'Error, no se pudo pasar a "en proceso" el pedido.',
+      });
+    }
+  };
