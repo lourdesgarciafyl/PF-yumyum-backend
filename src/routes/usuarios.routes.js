@@ -3,7 +3,8 @@ import {validarLogin, validarRegistro, validarUsuario} from "../helpers/validarU
 import {borrarUsuario, crearUsuario, editarUsuario, loginUsuario, obtenerListaUsuarios, obtenerUsuario, registro} from "../controllers/usuarios.controllers";
 
 const router = Router();
-router.route("/").get(obtenerListaUsuarios).post(validarRegistro, registro)
+router.route("/").get(obtenerListaUsuarios)
+router.route("/registro").post(validarRegistro, registro)
 router.route("/login").post(validarLogin,loginUsuario)
 router.route("/nuevo").post(validarUsuario, crearUsuario)
 router.route("/:id").delete(borrarUsuario).put(validarUsuario, editarUsuario).get(obtenerUsuario)
