@@ -23,7 +23,7 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, `/public`)))
 
 
-// http://localhost:4010/apiyumyum
+//http://localhost:4010/apiyumyum/
 app.use(`/apiyumyum/productos`, productosRouter)
 app.use(`/apiyumyum/categorias`, categoriasRouter)
 app.use(`/apiyumyum/auth`, usuariosRouter)
