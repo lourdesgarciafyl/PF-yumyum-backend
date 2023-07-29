@@ -5,7 +5,7 @@ import { crearPedido, entregarPedido, obtenerListaPedidos, obtenerPedido, pedido
 const router = Router();
 router.route("/").post(validarPedido, crearPedido).get(obtenerListaPedidos)
 router.route("/:id").get(obtenerPedido)
-router.route("/pendiente/:id").put(validarPedido, pedidoEnProceso)
+router.route("/enproceso/:id").put(validarPedido, pedidoEnProceso)
 router.route("/entregado/:id").put(validarPedido, entregarPedido)
 
 export default router
