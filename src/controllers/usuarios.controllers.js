@@ -1,3 +1,4 @@
+import envioEmail from "../helpers/envioEmailRegistrarse";
 import Usuario from "../models/usuario";
 import bcrypt from "bcrypt";
 
@@ -172,6 +173,7 @@ export const registro = async (req, res) => {
       perfil: usuario.perfil,
       uid: usuario._id,
     });
+    envioEmail();
   } catch (error){
     console.log(error);
     res.status(400).json({
