@@ -173,7 +173,7 @@ export const registro = async (req, res) => {
       perfil: usuario.perfil,
       uid: usuario._id,
     });
-    envioEmail();
+    envioEmail(usuario.nombreUsuario, usuario.email);
   } catch (error){
     console.log(error);
     res.status(400).json({
