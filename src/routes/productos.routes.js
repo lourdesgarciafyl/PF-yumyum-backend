@@ -7,7 +7,7 @@ const router = Router();
 router.route("/").post(validarProducto, crearProducto).get(obtenerListaProductos)
 router.route("/:id").get(obtenerProducto).delete(borrarProducto).put(validarProducto, editarProducto)
 router.route("/categoria/:categoria").get(consultaProductosPorCategoria)
-router.route("/activar/:id").put(validarEstadoProducto, activarProducto)
-router.route("/desactivar/:id").put(validarEstadoProducto, desactivarProducto)
+router.route("/activar/:id").put(activarProducto)
+router.route("/desactivar/:id").put(desactivarProducto)
 
 export default router;
