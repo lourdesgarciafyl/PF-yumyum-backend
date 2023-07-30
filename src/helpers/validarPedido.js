@@ -12,31 +12,6 @@ const validarPedido = [
     .notEmpty()
     .withMessage("Debe ingresar productos al pedido.")
     .isArray(),
-    check("productos.*.producto")
-    .notEmpty()
-    .withMessage("Debe incluir al menos un producto en el pedido."),
-    check("productos.*.cantidad")
-    .notEmpty()
-    .withMessage("La cantidad es un dato obligatorio.")
-    .isNumeric()
-    .custom((value) => {
-        if(value >= 1 && value <= 10){
-            return true;
-        } else {
-            throw new Error("La cantidad máxima de productos es 10.")
-        }
-    }),
-    check("productos.*.subtotalItem")
-    .notEmpty()
-    .withMessage("El subtotal es un dato obligatorio.")
-    .isNumeric()
-    .custom((value) => {
-        if(value >= 100 && value <= 100000){
-            return true;
-        } else {
-            throw new Error("El subtotal debe estar entre $100 y $100000")
-        }
-    }),
     check("estado")
     .notEmpty()
     .withMessage("El estado es un dato obligatorio")
