@@ -1,4 +1,5 @@
 import envioEmail from "../helpers/envioEmailRegistrarse";
+import generarJWT from "../helpers/tokenLogin";
 import Usuario from "../models/usuario";
 import bcrypt from "bcrypt";
 
@@ -37,40 +38,40 @@ export const crearUsuario = async (req, res) => {
 export const loginUsuario = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let usuario = await Usuario.findOne({ email });  
-
+    let usuario = await Usuario.findOne({ email });
+    const { nombreUsuario, perfil } = usuario;
     if (!usuario) {
       return res.status(400).json({
-        mensaje: 'Email o password no válido - email',
+        mensaje: "Email o password no válido - email",
       });
     }
-    if(usuario.estado!=='Activo'){
+    if (usuario.estado !== "Activo") {
       return res.status(400).json({
-        mensaje: 'El usuario no se encuentra activo - estado',
+        mensaje: "El usuario no se encuentra activo - estado",
       });
     }
 
-    const passwordValido = bcrypt.compareSync(password, usuario.password); 
+    const passwordValido = bcrypt.compareSync(password, usuario.password);
     if (!passwordValido) {
       return res.status(400).json({
-        mensaje: 'Email o password no válido - password',
+        mensaje: "Email o password no válido - password",
       });
     }
     //generar el token (identificador de este usuario)
     const token = await generarJWT({ nombreUsuario, perfil });
 
     res.status(200).json({
-      mensaje: 'El usuario es correcto',
+      mensaje: "El usuario es correcto",
       nombreUsuario: usuario.nombreUsuario,
       _id: usuario._id,
       email: usuario.email,
       perfil: usuario.perfil,
-      token
+      token,
     });
   } catch (error) {
     console.log(error);
     res.status(404).json({
-      mensaje: 'Usuario o Password incorrecto',
+      mensaje: "Usuario o Password incorrecto",
     });
   }
 };
@@ -122,37 +123,37 @@ export const editarUsuario = async (req, res) => {
     await usuario.save();
 
     res.status(200).json({
-      mensaje: "Usuario actualizado exitosamente."
+      mensaje: "Usuario actualizado exitosamente.",
     });
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      mensaje: "No se pudo actualizar el usuario correctamente."
+      mensaje: "No se pudo actualizar el usuario correctamente.",
     });
   }
 };
 
-export const obtenerListaUsuarios = async (req, res) =>{
+export const obtenerListaUsuarios = async (req, res) => {
   try {
-      const usuarios = await Usuario.find();
-      res.status(200).json(usuarios);
+    const usuarios = await Usuario.find();
+    res.status(200).json(usuarios);
   } catch (error) {
-      console.log(error)
-      res.status(404).json({
-          mensaje: "Error. No se pudo obtener la lista de usuarios"
-      })
+    console.log(error);
+    res.status(404).json({
+      mensaje: "Error. No se pudo obtener la lista de usuarios",
+    });
   }
 };
 
 export const obtenerUsuario = async (req, res) => {
-  try{
-      const usuario = await Usuario.findById(req.params.id);
-      res.status(200).json(usuario);
-  }catch(error){
-      console.log(error)
-      res.status(404).json({
-          mensaje: "Error. No se pudo obtener el usuario"
-      })
+  try {
+    const usuario = await Usuario.findById(req.params.id);
+    res.status(200).json(usuario);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje: "Error. No se pudo obtener el usuario",
+    });
   }
 };
 
@@ -178,7 +179,7 @@ export const registro = async (req, res) => {
       uid: usuario._id,
     });
     envioEmail(usuario.nombreUsuario, usuario.email);
-  } catch (error){
+  } catch (error) {
     console.log(error);
     res.status(400).json({
       mensaje: "El usuario no pudo ser registrado.",
