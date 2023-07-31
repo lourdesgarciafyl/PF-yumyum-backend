@@ -37,7 +37,7 @@ export const crearUsuario = async (req, res) => {
 export const loginUsuario = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let usuario = await Usuario.findOne({ email });
+    let usuario = await Usuario.findOne({ email });  
 
     if (!usuario) {
       return res.status(400).json({
@@ -56,12 +56,16 @@ export const loginUsuario = async (req, res) => {
         mensaje: 'Email o password no válido - password',
       });
     }
+    //generar el token (identificador de este usuario)
+    const token = await generarJWT({ nombreUsuario, perfil });
+
     res.status(200).json({
       mensaje: 'El usuario es correcto',
       nombreUsuario: usuario.nombreUsuario,
       _id: usuario._id,
       email: usuario.email,
       perfil: usuario.perfil,
+      token
     });
   } catch (error) {
     console.log(error);
