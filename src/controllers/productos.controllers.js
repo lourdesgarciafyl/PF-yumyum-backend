@@ -1,7 +1,6 @@
 import { json } from "express";
 import Producto from "../models/producto";
 
-
 export const crearProducto = async (req, res) => {
     try{
         const productoNuevo = new Producto(req.body);
