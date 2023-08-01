@@ -2,9 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const generarJWT = (usuario) => {
   return new Promise((resolve, reject) => {
-    //agregar los datos al payload
     const payload = { usuario };
-    //aqui firmamos el token
     jwt.sign(
       payload,
       process.env.SECRET_JWT,
@@ -16,7 +14,6 @@ const generarJWT = (usuario) => {
           console.log(err);
           reject('No se pudo generar el token');
         }
-        //si esta todo correcto
         resolve(token);
       }
     );
