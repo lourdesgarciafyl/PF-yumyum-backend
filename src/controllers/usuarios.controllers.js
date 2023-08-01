@@ -99,7 +99,7 @@ export const borrarUsuario = async (req, res) => {
 
 export const editarUsuario = async (req, res) => {
   try {
-    const { email, password, nombreUsuario } = req.body;
+    const { email, password, nombreUsuario, apellidoUsuario, estado, perfil } = req.body;
 
     // Verificar si el usuario existe en la BD
     const usuario = await Usuario.findById(req.params.id);
@@ -112,12 +112,15 @@ export const editarUsuario = async (req, res) => {
     // Si existe el usuario entonces ahi actualizamos sus datos
     usuario.email = email;
     usuario.nombreUsuario = nombreUsuario;
+    usuario.apellidoUsuario =apellidoUsuario;
+    usuario.estado = estado;
+    usuario.perfil = perfil;
 
     // Si cambio la contraseña la encriptamos y actualizamos
-    if (password) {
-      const salt = bcrypt.genSaltSync(10);
-      usuario.password = bcrypt.hashSync(password, salt);
-    }
+    // if (password) {
+    //   const salt = bcrypt.genSaltSync(10);
+    //   usuario.password = bcrypt.hashSync(password, salt);
+    // }
 
     // Guardamos los cambios en la BD
     await usuario.save();
