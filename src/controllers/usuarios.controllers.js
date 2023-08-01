@@ -189,3 +189,20 @@ export const registro = async (req, res) => {
     });
   }
 };
+
+export const cambiarPassword = async (req, res) => {
+  const idUsuario = req.params.id
+  try{
+    const usuario = await Usuario.findById(idUsuario)
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    const salt = bcrypt.genSaltSync(10);
+    usuario.password = bcrypt.hashSync(password, salt);
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      mensaje: "La contraseña no se pudo cambiar.",
+    });
+  }
+}
