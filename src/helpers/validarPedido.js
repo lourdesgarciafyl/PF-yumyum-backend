@@ -32,5 +32,4 @@ const validarPedido = [
     (req, res, next) => {resultadoValidacion(req, res, next)}
 ]
 
-
 export default validarPedido;
