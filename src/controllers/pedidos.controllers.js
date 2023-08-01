@@ -17,15 +17,14 @@ export const crearPedido = async (req, res) => {
 
 export const obtenerListaPedidos = async (req, res) => {
   try {
-    //buscar en la BD la collection de pedidos
     const pedidos = await Pedido.find()
       .populate({
         path: "productos.producto",
-        select: "-_id -__v", // Opcional: selecciona los campos que deseas excluir, como _id y __v
+        select: "-_id -__v",
       })
       .populate({
         path: "usuario",
-        select: "-_id -password -estado -perfil -__v", //  Opcional: selecciona los campos que deseas excluir, como _id y __v -password -estado -perfil
+        select: "-_id -password -estado -perfil -__v",
       });
     res.status(200).json(pedidos);
   } catch (error) {
@@ -84,7 +83,6 @@ export const entregarPedido = async (req, res) => {
 };
 
 export const pedidoEnProceso = async (req, res) => {
-  // En proceso
   const idPedido = req.params.id;
   try {
     const pedido = await Pedido.findById(idPedido);
@@ -107,8 +105,8 @@ export const pedidoEnProceso = async (req, res) => {
     console.log(error);
     res.status(404).json({
       mensaje: 'Error, no se pudo pasar a "en proceso" el pedido.',
-     }); 
-   } 
+    });
+  }
 };
 
 export const borrarPedido = async (req, res) => {

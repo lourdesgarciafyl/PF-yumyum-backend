@@ -23,6 +23,9 @@ registrarse para poder solicitar un pedido.
 - [Express Validator](https://express-validator.github.io/docs)
 - [Markdown](https://markdown.es/)
 
+## Link a la API en producción:
+
+- [Vercel](https://yumyum-backend.vercel.app/)
 
 ## Pasos para clonar y ejecutar el Servidor 🖥
 
@@ -57,33 +60,35 @@ Sigue estos pasos para clonar y ejecutar el servidor en tu entorno local:
 
     Esto ejecutará el script definido en el archivo package.json para iniciar el servidor Node.js.
 
-6.  **Accede al servidor:** Abre tu navegador web y visita la siguiente URL: _http://localhost:4010_. El servidor debería cargarse y estar listo para usarse. 
+6.  **Accede al servidor:** Abre tu navegador web y visita la siguiente URL: _http://localhost:4010_. El servidor debería cargarse y estar listo para usarse.
+
 - Se recomienda usar [Postman](https://www.postman.com/) para las solicitudes al servidor.
 
 ## Llamadas a la API
 
-- VITE_API_PRODUCTO=http://localhost:4010/apiyumyum/productos/
-- VITE_API_USUARIO=http://localhost:4010/apiyumyum/auth/
-- VITE_API_CATEGORIA=http://localhost:4010/apiyumyum/categorias/
-- VITE_API_PEDIDO=http://localhost:4010/apiyumyum/pedidos/
+- VITE_API_PRODUCTO=https://yumyum-backend.vercel.app/apiyumyum/productos
+- VITE_API_USUARIO=https://yumyum-backend.vercel.app/apiyumyum/auth
+- VITE_API_CATEGORIA=https://yumyum-backend.vercel.app/apiyumyum/categorias
+- VITE_API_PEDIDO=https://yumyum-backend.vercel.app/apiyumyum/pedidos
 
 ## Métodos :
 
 ## Métodos de productos:
 
-| Método | #Url de productos | #Acción                      |
-| ------ | ------------------| -----------------------------|
-| POST   | /productos        | Crear nuevo producto         |
-| GET    | /productos        | Muestra la lista de productos|
-| PUT    | /productos/:id    | Edita un producto por su id  |
-| DELETE | /productos/:id    | Borra un producto por su id  |
-| GET    | /productos/:id    | Busca un producto por su id  |
+| Método | #Url de productos         | #Acción                          |
+| ------ | ------------------------- | -------------------------------- |
+| POST   | /productos                | Crear nuevo producto             |
+| GET    | /productos                | Muestra la lista de productos    |
+| PUT    | /productos/:id            | Edita un producto por su id      |
+| DELETE | /productos/:id            | Borra un producto por su id      |
+| GET    | /productos/:id            | Busca un producto por su id      |
+| PUT    | /productos/activar/:id    | Activar un producto por su id    |
+| PUT    | /productos/desactivar/:id | Desactivar un producto por su id |
 
 Ejemplo de Body en el envío de Crear producto:
 
 ```
 {
-      "id": 4,
       "nombreProducto": "Pizza Primavera",
       "precio": 3200,
       "imagen": "https://res.cloudinary.com/dvcq6vatc/image/upload/v1689383714/yumyum/pizzaPrimavera_cl5yyj.png",
@@ -95,17 +100,16 @@ Ejemplo de Body en el envío de Crear producto:
 
 ## Métodos de categorias:
 
-| Método | #Url de categoria      | #Acción                        |
-| ------ | -----------------------|--------------------------------|
-| POST   | /categorias            | Crear nueva categoria          |
-| GET    | /categorias            | Muestra todas las categorias   |
-| GET    | /categorias/activas    | Muestra las categorias activas |
+| Método | #Url de categoria   | #Acción                        |
+| ------ | ------------------- | ------------------------------ |
+| POST   | /categorias         | Crear nueva categoria          |
+| GET    | /categorias         | Muestra todas las categorias   |
+| GET    | /categorias/activas | Muestra las categorias activas |
 
 Ejemplo de Body en crear categoria:
 
 ```
 {
-      "id": 2,
       "nombreCategoria": "Pizza",
       "estado": "Activo"
 }
@@ -113,19 +117,18 @@ Ejemplo de Body en crear categoria:
 
 ## Métodos de pedidos:
 
-| Método | #Url de pedidos          | #Acción                               |
-| ------ | -------------------------| --------------------------------------|
-| POST   | /pedidos                 | Crear nuevo pedido                    |
-| GET    | /pedidos                 | Muestra la lista de pedidos           |
-| PUT    | /pedidos/enproceso/:id   | Edita el estado del pedido por su id  |
-| PUT    | /pedidos/entregado/:id   | Edita el estado del pedido por su id  |
-| GET    | /pedidos/:id             | Muestra un pedido por su id           |
+| Método | #Url de pedidos        | #Acción                              |
+| ------ | ---------------------- | ------------------------------------ |
+| POST   | /pedidos               | Crear nuevo pedido                   |
+| GET    | /pedidos               | Muestra la lista de pedidos          |
+| PUT    | /pedidos/enproceso/:id | Edita el estado del pedido por su id |
+| PUT    | /pedidos/entregado/:id | Edita el estado del pedido por su id |
+| GET    | /pedidos/:id           | Muestra un pedido por su id          |
 
 Ejemplo de Body en crear pedido:
 
 ```
  {
-    "_id": "64c45b837bd3952422d9eae1",
     "usuario": {
         "nombreUsuario": "José",
         "apellidoUsuario": "Perez",
@@ -145,7 +148,7 @@ Ejemplo de Body en crear pedido:
             "cantidad": 2,
             "subtotalItem": 6000,
             "_id": "64c45b837bd3952422d9eae2"
-        },   
+        },
     ],
     "estado": "En proceso",
     "precioTotal": 6000
@@ -154,14 +157,17 @@ Ejemplo de Body en crear pedido:
 
 ## Métodos de Usuarios:
 
-| Método | #Url de Usuarios   | #Acción                      |
-| ------ | ------------------ | ---------------------------- |
-| POST   | /auth              | Login de un usuario          |
-| POST   | /auth/usuarios     | Crear nuevo usuario          |
-| GET    | /auth/usuarios     | Muestra la lista de usuarios |
-| GET    | /auth/usuarios/:id | Busca un usuario por su id   |
+| Método | #Url de Usuarios        | #Acción                      |
+| ------ | ----------------------- | ---------------------------- |
+| POST   | /registro               | Registrar un cliente         |
+| POST   | /auth/nuevo             | Registrar un administrador   |
+| POST   | /auth/login             | Loguear un usuario           |
+| POST   | /auth                   | Crear nuevo usuario          |
+| GET    | /auth                   | Muestra la lista de usuarios |
+| GET    | /auth/:id               | Busca un usuario por su id   |
+| PUT    | /auth/nuevopassword/:id | Crear nueva contraseña       |
 
-Ejemplo de Body en el envío de Crear nuevo Usuario:
+Ejemplo de Body en el envío de Crear nuevo usuario administrador:
 
 ```
    {
@@ -170,8 +176,18 @@ Ejemplo de Body en el envío de Crear nuevo Usuario:
       "email": "juanperez@gmail.com",
       "password": "123456aA",
       "estado": "Activo",
-      "perfil": "Cliente",
-      "id": 3
+      "perfil": "Cliente"
+   }
+```
+
+Ejemplo de Body en el envío de Crear nuevo usuario cliente:
+
+```
+   {
+      "nombreUsuario": "Juan",
+      "apellidoUsuario": "Perez",
+      "email": "juanperez@gmail.com",
+      "password": "123456aA"
    }
 ```
 
