@@ -134,3 +134,16 @@ export const desactivarProducto = async (req, res) => {
     });
   }
 };
+
+export const obtenerProductosActivos = async (req, res) => {
+  try {
+    const productosActivos = await Producto.find({ estado: 'Activo' });
+    res.status(200).json(productosActivos);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      mensaje:
+        'Error. No se pudo obtener la lista de productos en estado Activo.',
+    });
+  }
+};
