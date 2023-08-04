@@ -71,6 +71,14 @@ Sigue estos pasos para clonar y ejecutar el servidor en tu entorno local:
 - VITE_API_CATEGORIA=https://yumyum-backend.vercel.app/apiyumyum/categorias
 - VITE_API_PEDIDO=https://yumyum-backend.vercel.app/apiyumyum/pedidos
 
+## Variables de entorno
+- DATABASE_URI=mongodb+srv://adminYumyum:PeefD0x84Z3aR9Wf@yumyumdb.ukai0yb.mongodb.net/yumyum
+- SECRET_JWT=81^pR!jKbx3d51Y40Ab
+- YOUR_PUBLIC_KEY=PpCDOOp5Om_fIcrxQ
+- YOUR_PRIVATE_KEY=mywdf3cd-V_rjiXc69oc7
+- YOUR_SERVICE_ID=service_58bhdtn
+- YOUR_TEMPLATE_ID=template_f685fp9
+
 ## Métodos :
 
 ## Métodos de productos:
