@@ -7,7 +7,6 @@ export const crearUsuario = async (req, res) => {
   try {
     const { email, password } = req.body;
     let usuario = await Usuario.findOne({ email }); 
-    console.log(usuario);
     if (usuario) {
       return res.status(400).json({
         mensaje: "ya existe un usuario con el correo enviado",
@@ -24,7 +23,6 @@ export const crearUsuario = async (req, res) => {
       uid: usuario._id,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "El usuario no se creó",
     });
@@ -64,7 +62,6 @@ export const loginUsuario = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Usuario o Password incorrecto",
     });
@@ -84,7 +81,6 @@ export const borrarUsuario = async (req, res) => {
       mensaje: "Usuario eliminado exitosamente.",
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "No se pudo eliminar el usuario.",
     });
@@ -110,7 +106,6 @@ export const editarUsuario = async (req, res) => {
       mensaje: "Usuario actualizado exitosamente.",
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "No se pudo actualizar el usuario correctamente.",
     });
@@ -122,7 +117,6 @@ export const obtenerListaUsuarios = async (req, res) => {
     const usuarios = await Usuario.find();
     res.status(200).json(usuarios);
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Error. No se pudo obtener la lista de usuarios",
     });
@@ -134,7 +128,6 @@ export const obtenerUsuario = async (req, res) => {
     const usuario = await Usuario.findById(req.params.id);
     res.status(200).json(usuario);
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Error. No se pudo obtener el usuario",
     });
@@ -164,7 +157,6 @@ export const registro = async (req, res) => {
     });
     envioEmail(usuario.nombreUsuario, usuario.email);
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "El usuario no pudo ser registrado.",
     });
@@ -188,7 +180,6 @@ export const cambiarPassword = async (req, res) => {
       mensaje: "La contraseña se cambió correctamente.",
     });
   } catch (error) {
-    console.log(error)
     res.status(400).json({
       mensaje: "La contraseña no se pudo cambiar.",
     });

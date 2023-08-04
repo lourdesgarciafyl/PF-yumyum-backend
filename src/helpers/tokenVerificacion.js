@@ -9,10 +9,8 @@ const validarJWT = (req, res, next) => {
   }
   try {
     const payload = jwt.verify(token, process.env.SECRET_JWT);
-    console.log(payload);
     req.usuario = payload.usuario;
   } catch (error) {
-    console.log(error);
     return res.status(401).json({
       mensaje: "El token no es valido",
     });

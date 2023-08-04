@@ -9,7 +9,6 @@ export const crearProducto = async (req, res) => {
             mensaje: "El producto fue creado correctamente"
         })
     }catch(error){
-        console.log(error)
         res.status(404).json({
             mensaje: "Error. No se pudo crear el producto"
         })
@@ -21,7 +20,6 @@ export const obtenerListaProductos = async (req, res) =>{
         const productos = await Producto.find();
         res.status(200).json(productos);
     } catch(error){
-        console.log(error)
         res.status(404).json({
             mensaje: "Error. No se pudo obtener la lista de productos"
         })
@@ -48,11 +46,9 @@ export const editarProducto = async (req, res) => {
 
 export const obtenerProducto = async (req, res) =>{
   try{
-     console.log(req.params.id)
      const producto = await Producto.findById(req.params.id);
      res.status(200).json(producto);
   }catch(error){
-      console.log(error)
       res.status(404).json({
           mensaje: "Error, no se pudo obtener el producto."
       })
@@ -66,7 +62,6 @@ export const borrarProducto = async (req, res) =>{
       mensaje: "El producto fue eliminado correctamente"
      })
   }catch(error){
-      console.log(error)
       res.status(404).json({
           mensaje: "Error, el producto no se pudo borrar"
       })
@@ -75,12 +70,11 @@ export const borrarProducto = async (req, res) =>{
 
 export const consultaProductosPorCategoria = async (req, res) => {
   try {
-    const producto = await Producto.find({categoria: req.params.categoria});
+    const producto = await Producto.find({categoria: req.params.categoria, estado: "Activo"});
     res.status(200).json(producto);
   } catch (error) {
-    console.log(error);
     res.status(404).json({
-      mensaje: 'Error al intentar obtener el/los producto/s por categoría',
+      mensaje: 'Error al intentar obtener el/los producto/s por categoría y en estado activos',
     });
   }
 };
@@ -103,7 +97,6 @@ export const activarProducto = async (req, res) => {
       mensaje: 'Se activó el producto correctamente.',
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: 'Error, no se pudo activar el producto.',
     });
@@ -128,9 +121,20 @@ export const desactivarProducto = async (req, res) => {
       mensaje: 'Se desactivó el producto correctamente.',
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: 'Error, no se pudo desactivar el producto.',
+    });
+  }
+};
+
+export const obtenerProductosActivos = async (req, res) => {
+  try {
+    const productosActivos = await Producto.find({ estado: 'Activo' });
+    res.status(200).json(productosActivos);
+  } catch (error) {
+    res.status(404).json({
+      mensaje:
+        'Error. No se pudo obtener la lista de productos en estado Activo.',
     });
   }
 };
