@@ -8,7 +8,6 @@ export const crearPedido = async (req, res) => {
       mensaje: "El pedido fue creado correctamente.",
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "Error no se pudo crear un pedido",
     });
@@ -28,7 +27,6 @@ export const obtenerListaPedidos = async (req, res) => {
       });
     res.status(200).json(pedidos);
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Error al intentar listar los pedidos",
     });
@@ -48,7 +46,6 @@ export const obtenerPedido = async (req, res) => {
       });
     res.status(200).json(pedido);
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Error, no se pudo obtener el pedido.",
     });
@@ -75,7 +72,6 @@ export const entregarPedido = async (req, res) => {
       mensaje: "Se entregó el pedido correctamente.",
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: "Error, no se pudo pasar a entregado el pedido.",
     });
@@ -100,7 +96,6 @@ export const pedidoEnProceso = async (req, res) => {
       mensaje: "El pedido esta en proceso.",
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       mensaje: 'Error, no se pudo pasar a "en proceso" el pedido.',
      }); 
@@ -120,7 +115,6 @@ export const borrarPedido = async (req, res) => {
       mensaje: "Pedido eliminado exitosamente.",
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       mensaje: "No se pudo eliminar el pedido.",
     });
